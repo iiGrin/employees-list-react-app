@@ -1,12 +1,17 @@
 import EmployeesListItem from "../employeesListItem/EmployeesListItem";
 import "./employeesList.scss";
 
-const EmployeesList = () => {
+const EmployeesList = ({ employeesData }) => {
+
+    const employees = employeesData.map(employee => {
+        return (
+            <EmployeesListItem {...employee} />
+        );
+    });
+
     return (
         <ul className="list list-group">
-            <EmployeesListItem />
-            <EmployeesListItem />
-            <EmployeesListItem />
+            {employees}
         </ul>
     )
 }
