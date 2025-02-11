@@ -8,9 +8,9 @@ import './app.scss';
 function App() {
 
     const data = [
-        { name: "John Smit", salary: 1000, increase: false },
-        { name: "Luisa Clark", salary: 1200, increase: true },
-        { name: "Tony Stark", salary: 950, increase: false },
+        { name: "John Smit", salary: 1000, bonus: false, increase: false, id: 1 },
+        { name: "Luisa Clark", salary: 1200, bonus: false, increase: true, id: 2 },
+        { name: "Tony Stark", salary: 950, bonus: false, increase: false, id: 3 },
     ];
 
     return (

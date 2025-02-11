@@ -4,8 +4,9 @@ import "./employeesList.scss";
 const EmployeesList = ({ employeesData }) => {
 
     const employees = employeesData.map(employee => {
+        const { id, ...employeeData } = employee
         return (
-            <EmployeesListItem {...employee} />
+            <EmployeesListItem key={id} {...employeeData} />
         );
     });
 
@@ -14,6 +15,6 @@ const EmployeesList = ({ employeesData }) => {
             {employees}
         </ul>
     )
-}
+};
 
 export default EmployeesList;
