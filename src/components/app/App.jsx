@@ -15,7 +15,8 @@ class App extends Component {
                 { name: "Luisa Clark", salary: 1200, rise: false, increase: true, id: 2 },
                 { name: "Tony Stark", salary: 950, rise: false, increase: false, id: 3 },
             ],
-            term: ""
+            term: "", 
+            filter: "all"
         };
         this.maxId = 4;
     }
@@ -54,6 +55,10 @@ class App extends Component {
         }))
     }
 
+    onUpdateSearch = (term) => { // update term state from SearchPanel.jsx state
+        this.setState({ term });
+    }
+
     searchEmployee = (employees, term) => {
         if (!term.length) { // all employees
             return employees
@@ -64,22 +69,35 @@ class App extends Component {
         })
     }
 
-    onUpdateSearch = (term) => { // update term state from SearchPanel.jsx state
-        this.setState({ term });
+    filterPost = (employees, filter) => {
+        switch(filter) {
+            case "promotion": 
+                return employees.filter(employee => employee.rise);
+            case "bySalary":
+                return employees.filter(employee => employee.salary > 1000);
+            default: 
+                return employees;
+        }
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({filter});
     }
 
     render() {
-        const { employeesData, term } = this.state;
+        const { employeesData, term, filter } = this.state;
         const {
             addEmployee,
             deleteEmployee,
             onToggleProp,
             searchEmployee,
-            onUpdateSearch
+            onUpdateSearch,
+            filterPost,
+            onFilterSelect
         } = this;
         const totalCountOfEmployees = employeesData.length;
         const rise = employeesData.filter(employee => employee.rise).length;
-        const visibleEmployees = searchEmployee(employeesData, term)
+        const visibleEmployees = filterPost(searchEmployee(employeesData, term), filter)
 
         return (
             <div className="app">
@@ -88,7 +106,9 @@ class App extends Component {
                     rise={rise} />
                 <div className="search-panel">
                     <SearchPanel onUpdateSearch={onUpdateSearch} />
-                    <Filter />
+                    <Filter 
+                    filter={filter}
+                    onFilterSelect={onFilterSelect} />
                 </div>
                 <EmployeesList
                     employeesData={visibleEmployees}

@@ -1,25 +1,31 @@
 import "./filter.scss";
 
-const Filter = () => {
+const Filter = (props) => {
+    const buttonsData = [
+        {name: "all", label: "All employees"}, 
+        {name: "promotion", label: "For promotion"}, 
+        {name: "bySalary", label: "More than 1000$"}
+    ];
+
+    const buttons = buttonsData.map((btn) => {
+        const active = props.filter === btn.name;
+        const clazz = active ? "btn-light" : "btn-outline-light";
+        return (
+            <button
+                className={`btn ${clazz}`}
+                type="button"
+                key={btn.name}
+                onClick={() => props.onFilterSelect(btn.name)}>
+                {btn.label}
+            </button>
+        )
+    })
     return (
         <div className="btn-group">
-            <button
-                className="btn btn-light"
-                type="button">
-                All employees
-            </button>
-            <button
-                className="btn btn-outline-light"
-                type="button">
-                For promotion
-            </button>
-            <button
-                className="btn btn-outline-light"
-                type="button">
-                By salary
-            </button>
+            {buttons}
         </div>
     )
+
 }
 
 export default Filter;
